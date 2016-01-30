@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+       <bean id="filterChain" class="org.omd.services.FilterChain">
+              <property name="filters">
+                     <list>
+                            <ref bean="backgroundSubtractorFilter"/>
+                            <ref bean="findContoursFilter"/>
+                            <ref bean="swingDebugFilter"/>
+                            <!--<ref bean="debugSingeFrameFilter"/>-->
+                            <ref bean="debugContextFilter"/>
+                     </list>
+              </property>
+
+       </bean>
+
+       <bean id="swingDebugFilter" class="org.omd.filter.SwingDebugFilter">
+       </bean>
+       <bean id="backgroundSubtractorFilter" class="org.omd.filter.BackgroundSubtractorFilter">
+       </bean>
+       <bean id="findContoursFilter" class="org.omd.filter.FindContoursFilter">
+       </bean>
+       <bean id="debugSingeFrameFilter" class="org.omd.filter.DebugSingeFrameFilter">
+       </bean>
+       <bean id="debugContextFilter" class="org.omd.filter.DebugContextFilter">
+       </bean>
+
+</beans>

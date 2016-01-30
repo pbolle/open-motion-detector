@@ -21,38 +21,11 @@ public class BackgroundSubtractorFilter implements Filter {
 
     @Override
     public void execute(FilterContext context) {
-        Mat processedFrame = context.getLastFrame().clone();
+        Mat processedFrame = context.getLastFrame();
         Mat diffFrame = new Mat(processedFrame.size(), CvType.CV_8UC1);
-        processFrame(processedFrame, diffFrame, mBGSub);
+        mBGSub.apply(processedFrame, diffFrame, learningRate);
 
-        context.putFrame("processedFrame", processedFrame);
         context.putFrame("diffFrame", diffFrame);
-    }
-
-    // background substractionMOG2
-    public static void processFrame(Mat mRgba,
-                                    Mat mFGMask, BackgroundSubtractorMOG2 mBGSub) {
-        // GREY_FRAME also works and exhibits better performance
-        mBGSub.apply(mRgba, mFGMask, learningRate);
-
-        Imgproc.cvtColor(mFGMask, mRgba, Imgproc.COLOR_GRAY2BGRA, 0);
-
-        Mat erode = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(
-                8, 8));
-        Mat dilate = Imgproc.getStructuringElement(Imgproc.MORPH_RECT,
-                new Size(8, 8));
-
-        Mat openElem = Imgproc.getStructuringElement(Imgproc.MORPH_RECT,
-                new Size(3, 3), new Point(1, 1));
-        Mat closeElem = Imgproc.getStructuringElement(Imgproc.MORPH_RECT,
-                new Size(7, 7), new Point(3, 3));
-
-        Imgproc.threshold(mFGMask, mFGMask, 127, 255, Imgproc.THRESH_BINARY);
-        Imgproc.morphologyEx(mFGMask, mFGMask, Imgproc.MORPH_OPEN, erode);
-        Imgproc.morphologyEx(mFGMask, mFGMask, Imgproc.MORPH_OPEN, dilate);
-        Imgproc.morphologyEx(mFGMask, mFGMask, Imgproc.MORPH_OPEN, openElem);
-        Imgproc.morphologyEx(mFGMask, mFGMask, Imgproc.MORPH_CLOSE, closeElem);
-
     }
 
 }

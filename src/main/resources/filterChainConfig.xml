@@ -7,7 +7,9 @@
               <property name="filters">
                      <list>
                             <ref bean="backgroundSubtractorFilter"/>
+                            <ref bean="morphologyFilter"/>
                             <ref bean="findContoursFilter"/>
+                            <ref bean="swingDebugFilter"/>
                             <ref bean="swingDebugFilter"/>
                             <!--<ref bean="debugSingeFrameFilter"/>-->
                             <ref bean="debugContextFilter"/>
@@ -25,6 +27,8 @@
        <bean id="debugSingeFrameFilter" class="org.omd.filter.DebugSingeFrameFilter">
        </bean>
        <bean id="debugContextFilter" class="org.omd.filter.DebugContextFilter">
+       </bean>
+       <bean id="morphologyFilter" class="org.omd.filter.MorphologyFilter">
        </bean>
 
 </beans>

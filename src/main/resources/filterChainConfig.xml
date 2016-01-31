@@ -6,6 +6,7 @@
        <bean id="filterChain" class="org.omd.services.FilterChain">
               <property name="filters">
                      <list>
+                            <ref bean="rgb2GrayFilter"/>
                             <ref bean="backgroundSubtractorFilter"/>
                             <ref bean="morphologyFilter"/>
                             <ref bean="findContoursFilter"/>
@@ -29,6 +30,8 @@
        <bean id="debugContextFilter" class="org.omd.filter.DebugContextFilter">
        </bean>
        <bean id="morphologyFilter" class="org.omd.filter.MorphologyFilter">
+       </bean>
+       <bean id="rgb2GrayFilter" class="org.omd.filter.Rgb2GrayFilter">
        </bean>
 
 </beans>
